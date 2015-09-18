@@ -1267,7 +1267,7 @@ void BitcoinGUI::updateMintingWeights()
         if (pwalletMain)
 			pwalletMain->GetStakeWeight2(*pwalletMain, nMinMax, nMinMax, nWeight, nHoursToMaturity, nAmount);
 		
-		if (nHoursToMaturity > 188)
+		if (nHoursToMaturity > 48)
 			nHoursToMaturity = 0;
         nNetworkWeight = GetPoSKernelPS();
     }

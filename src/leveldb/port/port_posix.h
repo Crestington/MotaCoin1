@@ -26,7 +26,7 @@
   #include <sys/endian.h>
   #define PLATFORM_IS_LITTLE_ENDIAN (_BYTE_ORDER == _LITTLE_ENDIAN)
 #elif defined(OS_OPENBSD) || defined(OS_NETBSD) ||\
-      defined(OS_DRAGONMOTABSD)
+      defined(OS_DRAGONFLYBSD)
   #include <sys/types.h>
   #include <sys/endian.h>
 #elif defined(OS_HPUX)
@@ -54,7 +54,7 @@
 #endif
 
 #if defined(OS_MACOSX) || defined(OS_SOLARIS) || defined(OS_FREEBSD) ||\
-    defined(OS_NETBSD) || defined(OS_OPENBSD) || defined(OS_DRAGONMOTABSD) ||\
+    defined(OS_NETBSD) || defined(OS_OPENBSD) || defined(OS_DRAGONFLYBSD) ||\
     defined(OS_ANDROID) || defined(OS_HPUX)
 // Use fread/fwrite/fflush on platforms without _unlocked variants
 #define fread_unlocked fread
@@ -63,7 +63,7 @@
 #endif
 
 #if defined(OS_FREEBSD) ||\
-    defined(OS_OPENBSD) || defined(OS_DRAGONMOTABSD)
+    defined(OS_OPENBSD) || defined(OS_DRAGONFLYBSD)
 // Use fsync() on platforms without fdatasync()
 #define fdatasync fsync
 #endif

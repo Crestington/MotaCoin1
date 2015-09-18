@@ -197,28 +197,28 @@ Value moneysupply(const Array& params, bool fHelp)
 	
 	//height of blocks
 	int64_t nHeight = pindexBest->nHeight; //present
-	int64_t n1Height = nHeight - 720; // day -- 720 blocks should be about 1 day if blocks have 120 sec spacing
-	int64_t n7Height = nHeight - 720 * 7; // week
-	int64_t n30Height = nHeight - 720 * 30; // month
+	int64_t n1Height = nHeight - 1440; // day -- 1440 blocks should be about 1 day if blocks have 120 sec spacing
+	int64_t n7Height = nHeight - 1440 * 7; // week
+	int64_t n30Height = nHeight - 1440 * 30; // month
 	
 	//print to console
 	Object obj;
 	obj.push_back(Pair("moneysupply - present", GetMoneySupply(nHeight)));
-	obj.push_back(Pair("moneysupply - 720 blocks ago", GetMoneySupply(n1Height)));
-	obj.push_back(Pair("moneysupply - 5,040 blocks ago", GetMoneySupply(n7Height)));
-	obj.push_back(Pair("moneysupply - 21,600 blocks ago", GetMoneySupply(n30Height)));
+	obj.push_back(Pair("moneysupply - 1440 blocks ago", GetMoneySupply(n1Height)));
+	obj.push_back(Pair("moneysupply - 10,080 blocks ago", GetMoneySupply(n7Height)));
+	obj.push_back(Pair("moneysupply - 43,200 blocks ago", GetMoneySupply(n30Height)));
 	
-	obj.push_back(Pair("supply change(last 720 blocks)", GetSupplyChange(nHeight, n1Height)));
-	obj.push_back(Pair("supply change(last 5,040 blocks)", GetSupplyChange(nHeight, n7Height)));
-	obj.push_back(Pair("supply change(last 21,600 blocks)", GetSupplyChange(nHeight, n30Height)));
+	obj.push_back(Pair("supply change(last 1440 blocks)", GetSupplyChange(nHeight, n1Height)));
+	obj.push_back(Pair("supply change(last 10,080 blocks)", GetSupplyChange(nHeight, n7Height)));
+	obj.push_back(Pair("supply change(last 43,200 blocks)", GetSupplyChange(nHeight, n30Height)));
 	
-	obj.push_back(Pair("time change over 720 blocks", GetBlockSpeed(nHeight, n1Height)));
-	obj.push_back(Pair("time change over 5,040 blocks", GetBlockSpeed(nHeight, n7Height)));
-	obj.push_back(Pair("time change over 21,600 blocks", GetBlockSpeed(nHeight, n30Height)));
+	obj.push_back(Pair("time change over 1440 blocks", GetBlockSpeed(nHeight, n1Height)));
+	obj.push_back(Pair("time change over 10,080 blocks", GetBlockSpeed(nHeight, n7Height)));
+	obj.push_back(Pair("time change over 43,200 blocks", GetBlockSpeed(nHeight, n30Height)));
 	
-	obj.push_back(Pair("avg daily rate of change (last 720 blocks)", GetRate(nHeight, n1Height)));
-	obj.push_back(Pair("avg daily rate of change (last 5,040 blocks)", GetRate(nHeight, n7Height)));
-	obj.push_back(Pair("avg daily rate of change (last 21,600 blocks)", GetRate(nHeight, n30Height)));
+	obj.push_back(Pair("avg daily rate of change (last 1440 blocks)", GetRate(nHeight, n1Height)));
+	obj.push_back(Pair("avg daily rate of change (last 10,080 blocks)", GetRate(nHeight, n7Height)));
+	obj.push_back(Pair("avg daily rate of change (last 43,200 blocks)", GetRate(nHeight, n30Height)));
 	return obj;
 }
 
@@ -2061,7 +2061,7 @@ Value getstaketx(const Array& params, bool fHelp)
 				uint64_t nGeneratedAmount = max (nGeneratedMature, nGeneratedImmature);
 				double nGeneratedAmount2 = max (nGeneratedMature, nGeneratedImmature); //uint64_t math not working
 				double percentReward = nFee / (nGeneratedAmount2 - nFee);
-				double dWeight = ((nGeneratedAmount - nFee)/ COIN) * (dDaysToStake - 7);
+				double dWeight = ((nGeneratedAmount - nFee)/ COIN) * (dDaysToStake - 2);
 				
 				entry.push_back(Pair("Stake TX Time", nTime));
 				entry.push_back(Pair("Previous Time", nPrevTime));
@@ -2091,7 +2091,7 @@ double getWeight()
 		uint64_t nWeight = 0;
 		pwalletMain->GetStakeWeightFromValue(out.tx->GetTxTime(), out.tx->vout[out.i].nValue, nWeight);
 		double dAge = double(GetTime() - pindex->nTime) / (60*60*24);
-		if(dAge < 7)
+		if(dAge < 2)
 			nWeight = 0;
 		nWeightSum += nWeight;
 	}

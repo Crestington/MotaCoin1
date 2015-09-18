@@ -43,10 +43,10 @@ static CBigNum bnProofOfStakeLimit(~uint256(0) >> 24);
 static CBigNum bnProofOfWorkLimitTestNet(~uint256(0) >> 16);
 static CBigNum bnProofOfStakeLimitTestNet(~uint256(0) >> 30);
 
-unsigned int nTargetSpacing = 2 * 60; // 2 minute
-unsigned int nStakeMinAge = 7 * 24 * 60 * 60; // 7 days
-unsigned int nStakeMaxAge = 28 * 24 * 60 * 60; // 28 days
-unsigned int nModifierInterval = 17150; // time to elapse before new modifier is computed
+unsigned int nTargetSpacing = 1 * 60; // 2 minute
+unsigned int nStakeMinAge = 2 * 24 * 60 * 60; // 2 days
+unsigned int nStakeMaxAge = 14 * 24 * 60 * 60; // 14 days
+unsigned int nModifierInterval = 10 * 60; // time to elapse before new modifier is computed
 unsigned int nStakeTargetSpacing = nTargetSpacing;
 int64_t devCoin = 0 * COIN;
 int nCoinbaseMaturity = 50;
@@ -974,12 +974,12 @@ int64_t GetProofOfWorkReward(int64_t nFees)
     
     if (pindexBest->nHeight == 1)
     {
-      nSubsidy = 150000 * COIN;
+      nSubsidy = 5000000 * COIN;
       return nSubsidy + nFees;
     }   
     else if (pindexBest->nHeight+1 <= LAST_POW_BLOCK)
     {
-      nSubsidy = 50 * CENT;
+      nSubsidy = 1 * COIN;
       return nSubsidy + nFees;
     }
 
@@ -1014,18 +1014,18 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, unsigned int
 	int rand5 = generateMTRandom(seed+4, 100);
 	int64_t inputcoins = nValueIn / COIN;
 	int64_t nBonusSubsidy = 0;
-	if (inputcoins >= 25000) 
+	if (inputcoins >= 250000) 
 	{
 		if(rand1 <= 5)
-			nBonusSubsidy += 1 * COIN;
+			nBonusSubsidy += 100 * COIN;
 		if(rand2 <= 4)
-			nBonusSubsidy += 2 * COIN;
+			nBonusSubsidy += 200 * COIN;
 		if(rand3 <= 3)
-			nBonusSubsidy += 3 * COIN;
+			nBonusSubsidy += 300 * COIN;
 		if(rand4 <= 2)
-			nBonusSubsidy += 5 * COIN;
+			nBonusSubsidy += 500 * COIN;
 		if(rand5 <= 1)
-			nBonusSubsidy += 10 * COIN;
+			nBonusSubsidy += 1000 * COIN;
 		
 		//printf("creation", "BONUS stake: nBonusSubsidy = %s  inputcoins =%s nCoinAge=%s rand1=%s prevHash=%s\n", nBonusSubsidy, inputcoins, nCoinAge, rand1, prevHash.ToString());
 	}	
@@ -1036,8 +1036,8 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, unsigned int
     return nSubsidy + nBonusSubsidy + nFees;
 }
 
-static const int nTargetTimespan = 30 * 60; // 15 blocks  
-static const int nTargetSpacingWorkMax = 2 * nStakeTargetSpacing; // 4 minutes
+static const int nTargetTimespan = 10 * 60; // 10 blocks  
+static const int nTargetSpacingWorkMax = 2 * nStakeTargetSpacing; // 2 minutes
 //
 // maximum nBits value could possible be required nTime after
 //
@@ -2562,11 +2562,11 @@ bool LoadBlockIndex(bool fAllowNew)
     if (mapBlockIndex.empty())
     {
         if (!fAllowNew)
-            return true;
+            return false;
 
-        const char* pszTimestamp = "MotaCoin, flying high!";
+        const char* pszTimestamp = "MotaCoin, Mota Cesa Dia!";
         CTransaction txNew;
-        txNew.nTime = 1441657188;
+        txNew.nTime = 1442448037;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 0 << CBigNum(42) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
@@ -2576,9 +2576,9 @@ bool LoadBlockIndex(bool fAllowNew)
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime    = 1441657188; // Mon, 07 Sep 2015 20:19:48 GMT
+        block.nTime    = 1442448037; // Mon, 07 Sep 2015 20:19:48 GMT
         block.nBits    = bnProofOfWorkLimit.GetCompact();
-        block.nNonce   = 0;
+        block.nNonce   = 1146893;
         if(fTestNet)
         {
             block.nNonce   = 0;
@@ -2605,7 +2605,7 @@ bool LoadBlockIndex(bool fAllowNew)
         printf("block.nNonce = %u \n", block.nNonce);
 
         //// debug print
-        assert(block.hashMerkleRoot == uint256("0x5ecdd31de4d904d8986f5126a7f277398bfa8abbe15ad7d6eb0c27790b2dba47"));
+        assert(block.hashMerkleRoot == uint256("50b4c9ae13cf233d3158111478cb3f14c4252437ab5e7a4b3fc580961617ad9f"));
         block.print();
         assert(block.GetHash() == (!fTestNet ? hashGenesisBlock : hashGenesisBlockTestNet));
         assert(block.CheckBlock());
@@ -2885,7 +2885,7 @@ bool static AlreadyHave(CTxDB& txdb, const CInv& inv)
 // The message start string is designed to be unlikely to occur in normal data.
 // The characters are rarely used upper ASCII, not valid as UTF-8, and produce
 // a large 4-byte int at any alignment.
-unsigned char pchMessageStart[4] = { 0x70, 0xa6, 0x23, 0xa9 };
+unsigned char pchMessageStart[4] = { 0x60, 0xa5, 0x13, 0xa8 };
 
 bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 {

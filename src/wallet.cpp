@@ -19,7 +19,7 @@
 using namespace std;
 extern unsigned int nStakeMaxAge;
 
-unsigned int nStakeCombineAge = 28 * 24 * 60 * 60;
+unsigned int nStakeCombineAge = 14 * 24 * 60 * 60;
 
 int64_t gcd(int64_t n,int64_t m) { return m == 0 ? n : gcd(m, n % m); } 
 static uint64_t CoinWeightCost(const COutput &out) 
@@ -1790,7 +1790,7 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t> >& vecSend, 
         {
             nFeeRet = nTransactionFee;
 			if(fSplitBlock)
-				nFeeRet = COIN * 0.05;
+				nFeeRet = COIN * 1;
             while (true)
             {
                 wtxNew.vin.clear();
@@ -2008,7 +2008,7 @@ bool CWallet::GetStakeWeight2(const CKeyStore& keystore, uint64_t& nMinWeight, u
 
 	// variables for next stake calculation
 	uint64_t nPrevAge = 0;
-	uint64_t nStakeAge = 60 * 60 * 24 * 7;
+	uint64_t nStakeAge = 60 * 60 * 24 * 2;
 
     CTxDB txdb("r");
     BOOST_FOREACH(PAIRTYPE(const CWalletTx*, unsigned int) pcoin, setCoins)
@@ -2031,7 +2031,7 @@ bool CWallet::GetStakeWeight2(const CKeyStore& keystore, uint64_t& nMinWeight, u
         int64_t nTimeWeight = GetWeight2((int64_t)pcoin.first->nTime, (int64_t)GetTime());
         CBigNum bnCoinDayWeight = CBigNum(pcoin.first->vout[pcoin.second].nValue) * nTimeWeight / COIN / (24 * 60 * 60);
 
-		if ((nStakeAge - nCurrentAge) < (60*60*24*7)) // if the age is less than 7 days, report weight as 0 because the stake modifier won't allow for stake yet
+		if ((nStakeAge - nCurrentAge) < (60*60*24*2)) // if the age is less than 2 days, report weight as 0 because the stake modifier won't allow for stake yet
 			bnCoinDayWeight = 0;
 
         // Weight is greater than zero

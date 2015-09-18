@@ -27,17 +27,17 @@ class CInv;
 class CRequestTracker;
 class CNode;
 
-static const int LAST_POW_BLOCK = 21600; //about 1 month of PoW blocks
+static const int LAST_POW_BLOCK = 10000; //about 1 week of PoW blocks
 
 static const unsigned int MAX_BLOCK_SIZE = 1000000;
 static const unsigned int MAX_BLOCK_SIZE_GEN = MAX_BLOCK_SIZE/2;
 static const unsigned int MAX_BLOCK_SIGOPS = MAX_BLOCK_SIZE/50;
 static const unsigned int MAX_ORPHAN_TRANSACTIONS = MAX_BLOCK_SIZE/100;
 static const unsigned int MAX_INV_SZ = 50000;
-static const int64_t MIN_TX_FEE = 0.001 * COIN;
+static const int64_t MIN_TX_FEE = 0.2 * COIN;
 static const int64_t MIN_RELAY_TX_FEE = MIN_TX_FEE;
-static const int64_t MAX_MONEY = 5000000 * COIN;
-static const int64_t MAX_MINT_PROOF_OF_STAKE = 50 * CENT; // 50% per year
+static const int64_t MAX_MONEY = 25000000 * COIN;
+static const int64_t MAX_MINT_PROOF_OF_STAKE = 20 * CENT; // 20% per year
 static const int MAX_TIME_SINCE_BEST_BLOCK = 10; // how many seconds to wait before sending next PushGetBlocks()
 static const int MODIFIER_INTERVAL_SWITCH = 100;
 
@@ -47,9 +47,9 @@ inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MO
 // Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp.
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
 /** Combine Threshold Default */   
-static const int64_t DEF_COMBINE_AMOUNT = 1 * COIN; 
+static const int64_t DEF_COMBINE_AMOUNT = 250 * COIN; 
 /** Combine Threshold Max */  
-static const int64_t MAX_COMBINE_AMOUNT = 100 * COIN;
+static const int64_t MAX_COMBINE_AMOUNT = 2500 * COIN;
 
 #ifdef USE_UPNP
 static const int fHaveUPnP = true;
@@ -57,7 +57,7 @@ static const int fHaveUPnP = true;
 static const int fHaveUPnP = false;
 #endif
 
-static const uint256 hashGenesisBlock("0x0000045d787a26f5d4850d7d1125f8be9a677bab5d1605ad86b191901e574e57");
+static const uint256 hashGenesisBlock("0x0000083ab6e4b7e9e7d97289e207ab40c8b58c5eb0eb3047c46176768e249f6b");
 static const uint256 hashGenesisBlockTestNet("0x");
 
 inline int64_t GetClockDrift(int64_t nTime)

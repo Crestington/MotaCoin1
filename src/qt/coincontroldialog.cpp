@@ -616,7 +616,7 @@ void CoinControlDialog::updateLabels(WalletModel *model, QDialog* dialog)
         //nPayFee = nFee;
 		if(pwalletMain->fSplitBlock)
 		{
-			nPayFee = COIN * 200; // make the fee more expensive if using splitblock, this avoids having to calc fee based on multiple vouts
+			nPayFee = COIN * 1; // make the fee more expensive if using splitblock, this avoids having to calc fee based on multiple vouts
 		}
 	        
         if (nPayAmount > 0)
@@ -860,14 +860,14 @@ void CoinControlDialog::updateView()
 			uint64_t nMin = 1;
 			nBlockSize = qMax(nBlockSize, nMin);
 			uint64_t nTimeToMaturity = 0;
-			uint64_t nBlockWeight = qMax(nDisplayWeight, uint64_t(nBlockSize * 7)); // default to using weight at 7 days for calc
+			uint64_t nBlockWeight = qMax(nDisplayWeight, uint64_t(nBlockSize * 2)); // default to using weight at 2 days for calc
 			double dAge = nAge;
-			if (604800 - dAge >= 0 ) // 604800 seconds is 7 days
-				nTimeToMaturity = (604800 - nAge);
+			if (172800 - dAge >= 0 ) // 172800 seconds is 2 days
+				nTimeToMaturity = (172800 - nAge);
 			else
 				nTimeToMaturity = 0;
 			uint64_t nAccuracyAdjustment = 1; // this is a manual adjustment in an attempt to make staking estimate more accurate
-			uint64_t nEstimateTime = 120 * nNetworkWeight / nBlockWeight / nAccuracyAdjustment; // 120 seconds is block target
+			uint64_t nEstimateTime = 60 * nNetworkWeight / nBlockWeight / nAccuracyAdjustment; // 60 seconds is block target
 			uint64_t nMax = 999 * COIN; // qmin cannot compar int64, so convert to uint64 prior
 			nEstimateTime = qMin((nEstimateTime + nTimeToMaturity) * COIN / (60*60*24), nMax); // multiply by coin to use built in formatting
 			itemOutput->setText(COLUMN_TIMEESTIMATE, strPad(BitcoinUnits::formatAge(nDisplayUnit, nEstimateTime), 15, " "));

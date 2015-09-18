@@ -117,8 +117,8 @@ case "$TARGET_OS" in
         PORT_FILE=port/port_posix.cc
         ;;
     DragonFly)
-        PLATFORM=OS_DRAGONMOTABSD
-        COMMON_FLAGS="$MEMCMP_FLAG -D_REENTRANT -DOS_DRAGONMOTABSD"
+        PLATFORM=OS_DRAGONFLYBSD
+        COMMON_FLAGS="$MEMCMP_FLAG -D_REENTRANT -DOS_DRAGONFLYBSD"
         PLATFORM_LIBS="-lpthread"
         PORT_FILE=port/port_posix.cc
         ;;

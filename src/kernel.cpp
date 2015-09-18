@@ -17,13 +17,13 @@ typedef std::map<int, unsigned int> MapModifierCheckpoints;
 // Hard checkpoints of stake modifiers to ensure they are deterministic
 static std::map<int, unsigned int> mapStakeModifierCheckpoints =
     boost::assign::map_list_of
-    ( 0, 0x0e00670b )
+    ( 0, 0x0e00670bu )
     ;
 
 // Hard checkpoints of stake modifiers to ensure they are deterministic (testNet)
 static std::map<int, unsigned int> mapStakeModifierCheckpointsTestNet =
     boost::assign::map_list_of
-        ( 0, 0x0e00670b )
+        ( 0, 0x0e00670bu )
     ;
 
 // Get time weight
@@ -36,13 +36,13 @@ int64_t GetWeight(int64_t nIntervalBeginning, int64_t nIntervalEnd)
     return min(nIntervalEnd - nIntervalBeginning - nStakeMinAge, (int64_t)nStakeMaxAge);
 }
 
-// Get time weight 2 - This is added for informational purposes since staking takes 7 days min approx.
+// Get time weight 2 - This is added for informational purposes since staking takes 2 days min approx.
 int64_t GetWeight2(int64_t nIntervalBeginning, int64_t nIntervalEnd)
 {
     // Kernel hash weight starts from 0 at the min age
     // this change increases active coins participating the hash and helps
     // to secure the network when proof-of-stake difficulty is low
-	int64_t nStakeMinAgeV2 = 60 * 60 * 24 * 7;
+	int64_t nStakeMinAgeV2 = 60 * 60 * 24 * 2;
     return min(nIntervalEnd - nIntervalBeginning - nStakeMinAgeV2, (int64_t)nStakeMaxAge);
 }
 
