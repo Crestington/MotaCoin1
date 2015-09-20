@@ -1,6 +1,14 @@
 <h1>MotaCoin</h1>
 <h4><i>Come fly with Vegasguy</i></h4>
-<img src="http://s22.postimg.org/v24skn2hd/fly_coin.jpg" />
+#<img src="http://s22.postimg.org/v24skn2hd/fly_coin.jpg" />
+
+listen=1
+daemon=1
+server=1
+rpcuser=rpcuser
+rpcpassword=gdfgfd654bfdh
+rpcport=38569
+rpcallowip=127.0.0.1
 
 | Specification  | Details |
 | ------------- | ------------- |
